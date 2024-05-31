@@ -35,10 +35,7 @@ const geometry = new THREE.BufferGeometry();
 
 // 使用索引绘制
 const vertices = new Float32Array([ 
-  -1.0, -1.0, 0.0, 
-  1.0, -1.0, 0.0,
-  1.0, 1.0, 0.0, 
-  -1.0, 1.0, 0.0
+  -1.0, -1.0, 0.0, 1.0, -1.0, 0.0, 1.0, 1.0, 0.0, -1.0, 1.0, 0.0
 ])
 geometry.setAttribute('position', new THREE.BufferAttribute(vertices, 3));
 // 创建索引 利用第 0 1 2 个顶点 形成第一个三角形，利用2 3 0 个顶点 形成第二个三角形
@@ -48,9 +45,6 @@ const indices = new Uint16Array([
 ])
 // 创建索引属性
 geometry.setIndex(new THREE.BufferAttribute(indices, 1));
-// 设置两个顶点组， 形成两个材质 
-geometry.addGroup(0, 3, 0); // 从 顶点 0 开始 添加三个顶点 材质使用第 0 个
-geometry.addGroup(3, 3, 1);
 
 // 创建材质
 const material = new THREE.MeshBasicMaterial({
@@ -58,39 +52,8 @@ const material = new THREE.MeshBasicMaterial({
   // side:THREE.DoubleSide,
   wireframe:true
 });
-const material1 = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
-});
-
-const plane = new THREE.Mesh(geometry, [material, material1]);
+const plane = new THREE.Mesh(geometry, material);
 scene.add(plane);
-
-
-
-const cubegeometry = new THREE.BoxGeometry(1, 1, 1);
-const cubematerial0 = new THREE.MeshBasicMaterial({
-  color: 0x00ff00,
-});
-const cubematerial1 = new THREE.MeshBasicMaterial({
-  color: 0xff0000,
-});
-const cubematerial2 = new THREE.MeshBasicMaterial({
-  color: 0x0000ff,
-});
-const cubematerial3 = new THREE.MeshBasicMaterial({
-  color: 0xffff00,
-});
-const cubematerial4 = new THREE.MeshBasicMaterial({
-  color: 0x00ffff,
-});
-const cubematerial5 = new THREE.MeshBasicMaterial({
-  color: 0xff00ff,
-});
-
-const cube = new THREE.Mesh(cubegeometry,[cubematerial0, cubematerial1, cubematerial2, cubematerial3, cubematerial4, cubematerial5]);
-cube.position.x = 2;
-scene.add(cube);
-
 
 // 设置相机位置
 camera.position.z = 5;
